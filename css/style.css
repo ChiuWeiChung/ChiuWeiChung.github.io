@@ -14,7 +14,7 @@
 
 .navbar-list {
     margin: 0 0 0 0;
-    width: 60%;
+    width:55%;
 }
 
 .navbar-list li {
@@ -56,16 +56,30 @@
 	transform: scale(1, 1);
 }
 
+.navbar .search-input{
+    height:34px;
+}
+
+.navbar input {
+    border-radius: 1rem;
+    outline: none;
+    padding-left: 15px;
+    height: 100%;
+}
+
+
 /* -------------BOARD------------------- */
 .board {
     margin-top:105px;
 }
 
-.avatar {
+.board .avatar {
     position: fixed;
     right: 0;
     top:100px;
     width: 15%;
+    background-color: #20b2aa33;
+    border-radius: 10%;
 }
 
 .avatar .my-picture{
@@ -75,6 +89,9 @@
 
 .avatar .avatar-body{
     font-size:1.2rem ;
+}
+.avatar-body ul {
+    background-color: #ffffff00;
 }
 
 .avatar-body ul li {
@@ -89,12 +106,11 @@
 
 .article-column {
     width:90%;
-    margin-right: 10%;
-    margin-left:10%;
+    margin-left:5%;
 }
 
 
-.post {
+h1 {
     box-shadow: 0 3px 0 rgba(0,0,0,0.2);
     margin-bottom: 30px;
     width:60%;
@@ -137,7 +153,7 @@
 
 .pages {
     width: 100%;
-    margin-right: 15%;
+    margin-left: 5%;
     margin-bottom: 15px;
 }
 
@@ -157,34 +173,89 @@
 /*------------------------------ notes content -----------------*/
 .note-content{
     text-align: left;
-    margin-left:5%;
+    /* margin-left:5%; */
+    letter-spacing: 0.5px;
     width:100%;
 }
 
 .note-content h4 {
     font-size: 1.0rem;
     width:80%;
-    line-height: 2;
+    line-height: 1.8;
+    margin-left: 1%;
 }
 
 .note-content h2 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width:fit-content;
+    border-left: 6px solid darkgray;
+    background-color: #e0e0e045;
+    padding-left: 3px;
+}
+
+.note-content p {
+    width: 80%;
+}
+
+.note-content ol, ul {
+    background-color: #f7f6f6;
+    width: fit-content;
+    line-height: 1.8;
+}
+
+.note-content ol li {
+    margin-right:15px;
+}
+
+.note-content ul li {
+    margin-right:15px;
 }
 
 pre {
-    /* width:60%; */
+    width:80%;
     background-color: #332f2f;
-    color:#d6e4f5;
+    color:#eff2f5;
     margin: 20px 20% 20px 0;
     text-align: left;
     padding-left: 2%;
+}
+
+p code {
+    background-color: #e2e8f9;
 }
 
 pre code{
     font-size: 0.8rem;
 }
 
+pre code .hljs-comment {
+    color: rgb(161, 197, 161);
+}
+
+pre code .hljs-built_in {
+    color: aquamarine;
+}
+
+pre code .hljs-keyword {
+    color: sandybrown;
+}
+
+pre code .hljs-string {
+    color: mediumvioletred;
+}
+
 .board h4 code {
-    background-color: #e47e7e;
-    color: white;
+    /* background-color: #e29595; */
+    color: #ec6969;
+    font-size: 1.0rem;    
+}
+
+/* --------------footer------------------ */
+
+.foot {
+    /* position: absolute; */
+    height: 60px;
+    bottom: 0px;
+    left: 0px;
 }
