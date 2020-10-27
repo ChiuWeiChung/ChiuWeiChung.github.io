@@ -107,13 +107,14 @@
 .article-column {
     width:90%;
     margin-left:5%;
+    margin-bottom:15px;
 }
 
 
-h1 {
+.article-column h1 {
     box-shadow: 0 3px 0 rgba(0,0,0,0.2);
     margin-bottom: 30px;
-    width:60%;
+    width:fit-content;
 }
 
 .article-item {
@@ -173,24 +174,25 @@ h1 {
 /*------------------------------ notes content -----------------*/
 .note-content{
     text-align: left;
-    /* margin-left:5%; */
     letter-spacing: 0.5px;
     width:100%;
+    background-color: #f5f4f587;
+    border-radius: 5px;
+    border: 3px solid #b9f9b9;
+    padding-top: 10px;
 }
 
 .note-content h4 {
     font-size: 1.0rem;
-    width:80%;
+    width:90%;
     line-height: 1.8;
     margin-left: 1%;
 }
 
 .note-content h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.6rem;
     width:fit-content;
-    border-left: 6px solid darkgray;
-    background-color: #e0e0e045;
+    border-left: 3px solid rgb(243, 117, 117);
     padding-left: 3px;
 }
 
@@ -198,10 +200,11 @@ h1 {
     width: 80%;
 }
 
-.note-content ol, ul {
+.note-content ol, .note-content ul{
     background-color: #f7f6f6;
     width: fit-content;
     line-height: 1.8;
+    border:1px solid rgb(165, 165, 101)
 }
 
 .note-content ol li {
