@@ -1,5 +1,7 @@
 /* ---------------NAVBAR-------------- */
-
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+}
 
 .page-header {
     font-size: 1.2rem;
@@ -176,17 +178,18 @@
     text-align: left;
     letter-spacing: 0.5px;
     width:100%;
-    background-color: #f5f4f587;
+    background-color: #fff;
     border-radius: 5px;
     border: 3px solid #b9f9b9;
     padding-top: 10px;
 }
 
 .note-content h4 {
-    font-size: 1.0rem;
+    font-size: 1.2rem;
     width:90%;
-    line-height: 1.8;
+    line-height: 1.6;
     margin-left: 1%;
+    color:#666;
 }
 
 .note-content h2 {
