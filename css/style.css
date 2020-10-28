@@ -251,10 +251,9 @@ pre code .hljs-string {
     color: mediumvioletred;
 }
 
-.board h4 code {
-    /* background-color: #e29595; */
+.note-content h4 code {
     color: #ec6969;
-    font-size: 1.0rem;    
+    font-size: 1.2rem;    
 }
 
 /* --------------footer------------------ */
