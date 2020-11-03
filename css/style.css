@@ -200,6 +200,13 @@ body {
     padding-left: 3px;
 }
 
+.note-content h3 {
+    font-size: 1.4rem;
+    width:fit-content;
+    margin-top:35px;
+    padding-left: 3px;
+}
+
 .note-content p {
     width: 80%;
 }
@@ -219,6 +226,11 @@ body {
     margin-right:15px;
 }
 
+.note-content img {
+    width:45%;
+    display: inline-block;
+}
+
 pre {
     width:80%;
     background-color: #332f2f;
@@ -230,10 +242,11 @@ pre {
 
 p code {
     background-color: #e2e8f9;
+    font-size: 1.2rem;
 }
 
 pre code{
-    font-size: 0.8rem;
+    font-size: 1.0rem;
 }
 
 pre code .hljs-comment {
