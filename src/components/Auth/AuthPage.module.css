@@ -1,0 +1,30 @@
+.AuthPage {
+    top: var(--navbar-height);
+    position: absolute;
+    left: var(--sidebar-width);
+    padding: 2rem;
+    width: calc(100% - var(--sidebar-width));
+    min-height: calc(100vh - 3rem);
+    background-color: #f7f7f7;
+    text-align: center;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+}
+
+.AuthPage button{
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    width: 25%;
+    height: 5rem;
+    cursor: pointer;
+}
+
+.Login {
+    background-color: var(--color-brand--2);
+}
+.Logout {
+    background-color: var(--color-brand--1);
+}

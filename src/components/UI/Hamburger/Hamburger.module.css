@@ -1,0 +1,21 @@
+.Hamburger {
+    width: 25px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+    height: 60%;
+    cursor: pointer;
+    display: none;
+    margin-left: auto;
+    margin-right: 2rem;
+}
+
+.Hamburger .Line{
+    border-bottom: 2px solid whitesmoke;
+}
+
+@media (max-width:768px){
+    .Hamburger{
+        display: flex;
+    }
+}

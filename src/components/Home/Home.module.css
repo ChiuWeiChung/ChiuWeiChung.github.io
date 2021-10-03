@@ -1,0 +1,16 @@
+.Home {
+    top: var(--navbar-height);
+    position: absolute;
+    left: var(--sidebar-width);
+    padding: 2rem;
+    width: calc(100% - var(--sidebar-width));
+    min-height: calc(100vh - 3rem);
+    background-color: #f7f7f7;
+}
+
+@media(max-width:768px) {
+    .Home {
+        left: 0;
+        width: 100%;
+    }
+}

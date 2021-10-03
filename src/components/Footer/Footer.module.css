@@ -1,0 +1,23 @@
+.Footer {
+    width: 100%;
+    background-color: #e6e6e6;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    font-size: .8rem;
+    justify-content: space-around;
+}
+
+.Footer h3 a, .Footer h3 a:active {
+    color: darkorange;
+    text-decoration: none;
+}
+
+.Utils {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 60%;
+}
