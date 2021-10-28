@@ -1,0 +1,105 @@
+.Portfolio {
+    top: var(--navbar-height);
+    position: absolute;
+    left: var(--sidebar-width);
+    padding: 0 1rem 5rem 1rem;
+    width: calc(100% - var(--sidebar-width));
+    min-height: calc(100vh - var(--navbar-height));
+    background-color: var(--color-light--3);
+}
+
+.Content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.Content .Item {
+    width: 30%;
+    margin: 1rem 1.6%;
+    border: .5px solid rgba(0, 0, 0, .125);
+    border-radius: 3%;
+    overflow: hidden;
+    transition: all .3s;
+    cursor: pointer;
+    position: relative;
+    background-color: var(--color-light--2);
+    box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 15%);
+    text-decoration: none;
+    color: inherit;
+}
+
+.Caption {
+    position: absolute;
+    color: white;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.5s;
+    backface-visibility: hidden;
+}
+
+.Content .Item:hover {
+    transform: translateY(-5px);
+}
+
+.Content .Item:hover .ImgContainer {
+    filter: brightness(80%);
+}
+
+.Content .Item:hover .Caption {
+    opacity: 1;
+    transform: translate(-50%, -80px);
+}
+
+.Content .ImgContainer img {
+    width: 100%;
+    height: 18rem;
+    object-fit: cover;
+    vertical-align: bottom;
+}
+
+.Content .TextContainer {
+    padding: 1rem;
+}
+
+.TextContainer .Title {
+    margin: .5rem;
+    color: var(--color-dark--2);
+}
+
+.TextContainer .Description {
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+@media(max-width:1024px) {
+    .Content .Item {
+        width: 45%;
+        margin: 1rem 2.5%;
+    }
+}
+
+@media(max-width:768px) {
+    .Portfolio {
+        left: 0;
+        width: 100%;
+    }
+}
+
+@media(max-width:425px) {
+    .Content {
+        justify-content: center;
+    }
+    .Content .Item {
+        width: 80%;
+        margin: 1rem 10%;
+    }
+}

@@ -1,4 +1,4 @@
-body {
+/* body {
   font-family: 'Noto Sans TC', sans-serif;
   margin: 0;
   padding: 0;
@@ -46,7 +46,8 @@ body {
 
 .Close {
   transform: translatey(-130%);
-}
+} */
+
 /* 
 .loader, .loader:after {
   border-radius: 50%;
@@ -101,3 +102,11 @@ body {
     transform: rotate(360deg);
   }
 } */
+
+.checkbutton {
+  z-index: 9000;
+  background-color: orangered;
+  position: absolute;
+  left: 50%;
+  top: 200px;
+}

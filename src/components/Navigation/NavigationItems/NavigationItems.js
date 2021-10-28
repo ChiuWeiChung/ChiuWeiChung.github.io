@@ -6,10 +6,7 @@ const navigationItems = (props) => {
     return (
         <ul className={classes.LinkList}>
             <li className={classes.sweep}>
-                <NavLink exact to="/">Home</NavLink>
-            </li>
-            <li className={classes.sweep}>
-                <NavLink to="/projects">作品集</NavLink>
+                <NavLink to="/portfolio">作品集</NavLink>
             </li>
             <li className={classes.sweep}>
                 <NavLink to="/about">關於我</NavLink>

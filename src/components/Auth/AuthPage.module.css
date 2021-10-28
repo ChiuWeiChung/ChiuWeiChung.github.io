@@ -2,29 +2,56 @@
     top: var(--navbar-height);
     position: absolute;
     left: var(--sidebar-width);
-    padding: 2rem;
+    padding: 0 1rem 5rem 1rem;
     width: calc(100% - var(--sidebar-width));
-    min-height: calc(100vh - 3rem);
+    min-height: calc(100vh - var(--navbar-height));
     background-color: #f7f7f7;
-    text-align: center;
-    display: flex;
-    align-items: stretch;
-    justify-content: space-evenly;
 }
 
-.AuthPage button{
+.AuthPage form {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    padding: 1rem;
+    margin: 2rem auto;
+    font-size: 1rem;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: #4e11d2a1;
+    border-radius: 10px;
+}
+
+.AuthPage label {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.AuthPage input {
+    border-radius: 5px;
+    width: 100%;
+    height: 3rem;
+    margin: 0.5rem 0;
+    border: 0.5px solid black;
+    padding-left: 1rem;
+}
+
+.AuthPage button {
     border-radius: 5px;
     color: white;
     font-weight: bold;
     border: none;
-    width: 25%;
-    height: 5rem;
+    font-size: 1.5rem;
+    height: 2.5rem;
     cursor: pointer;
 }
 
 .Login {
     background-color: var(--color-brand--2);
 }
-.Logout {
-    background-color: var(--color-brand--1);
+
+@media(max-width:768px) {
+    .AuthPage {
+        left: 0;
+        width: 100%;
+    }
 }

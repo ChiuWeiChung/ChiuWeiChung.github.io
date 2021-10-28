@@ -13,7 +13,7 @@
 }
 
 .Logo{
-    width: 15rem;
+    padding-left: 1rem;
     text-align: center;
     color: #e3e3e3;
 }
@@ -23,4 +23,12 @@
     color: inherit;
 }
 
-
+.SignoutButton {
+    border: none;
+    border-radius: 5px;
+    margin: 0 1rem;
+    background-color: #f8bb22;
+    font-size: 1.2rem;
+    color: white;
+    cursor: pointer;
+}

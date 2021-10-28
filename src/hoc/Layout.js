@@ -2,7 +2,6 @@ import React from 'react'
 import Navigation from '../components/Navigation/Navigation';
 import NewSideBar from '../components/NewSideBar/newSideBar';
 import Aux from './Auxiliary.js';
-import Auth from '../components/Auth/Auth';
 class Layout extends React.Component {
 
     state = {
@@ -36,8 +35,7 @@ class Layout extends React.Component {
         return (
             <Aux>
                 <Navigation clicked={this.sideBarToggler} />
-                <NewSideBar showSideBar={this.state.showSideBar} showList={this.state.showList} listToggler={this.listToggler} />
-                <Auth />
+                <NewSideBar showSideBar={this.state.showSideBar} showList={this.state.showList} listToggler={this.listToggler} sideBarToggler={this.sideBarToggler} />
                 {this.props.children}
             </Aux>
         )

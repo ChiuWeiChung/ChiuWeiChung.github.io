@@ -1,4 +1,7 @@
 import classes from './newSideBar.module.css';
+import { connect } from 'react-redux';
+import Loader from '../UI/Loader/Loader';
+import { Link } from 'react-router-dom'
 
 function newSideBar(props) {
     let sideBarStyle = props.showSideBar ? [classes.NewSideBar, classes.ShowSideBar].join(' ') : [classes.NewSideBar];
@@ -7,83 +10,43 @@ function newSideBar(props) {
         const subject = e.target.closest(`.${classes.Subject}`);
         subject.childNodes[1].classList.toggle(classes.Show);
     }
+    // console.log('sidebar page', props.notes);
+
+    const renderSubject = () => {
+        if (!props.themes.length) return <Loader></Loader>
+        const themesWithoutPortfolio = props.themes.filter(el=>el.type!=='portfolio');
+        return themesWithoutPortfolio.map(theme => {
+            return (
+                <div key={theme._id} className={classes.Subject}>
+                    <div className={classes.Title} onClick={subjectClicker}>
+                        <p>{theme.name}</p>
+                        <i style={{ marginLeft: '1rem' }} className="fas fa-sort-down"></i>
+                    </div>
+                    <ul className={classes.List}  >
+                        {theme.noteCollection.map(note => {
+                            return (
+                                <li onClick={props.sideBarToggler} key={note._id}>
+                                    <Link to={`/note?themeId=${note.themeId}&noteId=${note._id}`}>{note.title}</Link>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </div>
+            )
+        })
+    }
+
     return (
         <div className={sideBarStyle}>
-            <div className={classes.Subject}>
-                <div className={classes.Title} onClick={subjectClicker}>
-                    <p>JavaScript</p>
-                    <i style={{ marginLeft: '1rem' }} className="fas fa-sort-down"></i>
-                </div>
-                <ul className={classes.List}  >
-                    <li>1dafas</li>
-                    <li>2asdfasd</li>
-                    <li>3asdfasd</li>
-                    <li>asdfasfasdfsdf4</li>
-                </ul>
-            </div>
-            <div className={classes.Subject}>
-                <div className={classes.Title} onClick={subjectClicker}>
-                    <p>TypeScript</p>
-                    <i style={{ marginLeft: '1rem' }} className="fas fa-sort-down"></i>
-                </div>
-                <ul className={classes.List}>
-                    <li>1dafas</li>
-                    <li>2asdfasd</li>
-                    <li>3asdfasd</li>
-                    <li>asdfasfasdfsdf4</li>
-                </ul>
-            </div>
-            <div className={classes.Subject}>
-                <div className={classes.Title} onClick={subjectClicker}>
-                    <p>資料結構與演算法</p>
-                    <i style={{ marginLeft: '1rem' }} className="fas fa-sort-down"></i>
-                </div>
-                <ul className={classes.List}>
-                    <li>以第一原理計算探討鈦酸鋇摻雜鑭</li>
-                    <li>2asdfasd</li>
-                    <li>3asdfasd</li>
-                    <li>asdfasfasdfsdf4</li>
-                </ul>
-            </div>
-            <div className={classes.Subject}>
-                <div className={classes.Title} onClick={subjectClicker}>
-                    <p>其他</p>
-                    <i style={{ marginLeft: '1rem' }} className="fas fa-sort-down"></i>
-                </div>
-                <ul className={classes.List}>
-                    <li>1dafas</li>
-                    <li>2asdfasd</li>
-                    <li>3asdfasd</li>
-                    <li>asdfasfasdfsdf4</li>
-                </ul>
-            </div>
-            <div className={classes.Subject}>
-                <div className={classes.Title} onClick={subjectClicker}>
-                    <p>Git and Github</p>
-                    <i style={{ marginLeft: '1rem' }} className="fas fa-sort-down"></i>
-                </div>
-                <ul className={classes.List}>
-                    <li>1dafas</li>
-                    <li>2asdfasd</li>
-                    <li>3asdfasd</li>
-                    <li>asdfasfasdfsdf4</li>
-                </ul>
-            </div>
-            <div className={classes.Subject}>
-                <div className={classes.Title} onClick={subjectClicker}>
-                    <p>Portfolio</p>
-                    <i style={{ marginLeft: '1rem' }} className="fas fa-sort-down"></i>
-                </div>
-                <ul className={classes.List}>
-                    <li>1dafas</li>
-                    <li>2asdfasd</li>
-                    <li>3asdfasd</li>
-                    <li>asdfasfasdfsdf4</li>
-                </ul>
-            </div>
-
+            {renderSubject()}
         </div>
     )
 }
 
-export default newSideBar
+const mapStateToProps = (state) => {
+    return {
+        themes: state.notes.themes
+    }
+}
+
+export default connect(mapStateToProps)(newSideBar)

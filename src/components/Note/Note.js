@@ -1,54 +1,75 @@
 import React from 'react';
-import axios from '../../axios';
 import Markdown from 'markdown-to-jsx';
 import classes from './Note.module.css';
 import hljs from 'highlight.js';
-import 'highlight.js/styles/tomorrow-night-bright.css';
-
+import Loader from '../UI/Loader/Loader';
+import 'highlight.js/styles/stackoverflow-light.css';
+import Footer from '../Footer/Footer';
+import Aux from '../../hoc/Auxiliary';
+import 'github-markdown-css/github-markdown.css';
+import { connect } from 'react-redux';
+import { fetchMarkdown } from '../../store/actions/note'
 
 class Note extends React.Component {
-    state = {
-        markup: null,
-        showSpinner: true
-    }
 
-    componentDidUpdate(){
-        hljs.highlightAll()
+    componentDidUpdate(prevProps) {
+        hljs.highlightAll();
+        let prevObjId = this.extractSearchParams(prevProps.location.search);
+        let currentObjId = this.extractSearchParams(this.props.location.search);
+        if (prevObjId.noteId !== currentObjId.noteId) {
+            this.props.fetchMarkdown(currentObjId)
+        }
     }
-
 
     componentDidMount() {
-        const searchParams = new URLSearchParams (this.props.location.search);
-        let url;
-        for (let key of searchParams){
-            url = key[1]
-        }
-        axios.get(`https://raw.githubusercontent.com/ChiuWeiChung/notes-markdown/${url}`).then(res => {
-            this.setState({ markup: res.data, showSpinner: false })
-        })
+        let obj = this.extractSearchParams(this.props.location.search)
+        this.props.fetchMarkdown(obj);
+    }
 
 
+    extractSearchParams(search) {
+        const searchParams = new URLSearchParams(search);
+        let obj = {}
+        for (let key of searchParams) {
+            obj[key[0]] = key[1]
+        };
+        return obj
     }
 
     render() {
-        let content = (
-            <div className="loader"></div>
-        )
+        let style = ['markdown-body', classes.Note].join(' ');
+        let renderContent = <div style={{ width: '10rem',margin:'auto',transform:'translateY(5rem)' }}><Loader /></div>
 
-        if (!this.state.showSpinner) {
-            content = (
-                <Markdown>{this.state.markup}</Markdown>
+        if (this.props.notes.fetchedMarkdown) {
+            renderContent = (
+                <Aux>
+                    <Markdown>{this.props.notes.fetchedMarkdown}</Markdown>
+                    <Footer />
+                </Aux>
             )
-
         }
 
+        if (this.props.notes.errorMessage) {
+            renderContent = (
+                <Aux>
+                    <h2>Sorry! Something Went Wrong~</h2>
+                    <p>{this.props.notes.errorMessage}</p>
+                </Aux>
+            )
+        }
         return (
-            <div className={classes.Note}>
-                {content}
+            <div className={style}>
+                {renderContent}
             </div>
         )
-
     }
 }
 
-export default Note
+const mapStateToProps = (state) => {
+    return {
+        notes: state.notes
+    }
+}
+
+
+export default connect(mapStateToProps, { fetchMarkdown })(Note)

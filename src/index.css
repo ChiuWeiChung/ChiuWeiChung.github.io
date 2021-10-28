@@ -1,23 +1,28 @@
 :root {
     --color-brand--1: #ffb545;
     --color-brand--2: #00c46a;
-  
     --color-dark--1: #2d3439;
     --color-dark--2: #42484d;
     --color-light--1: #aaa;
     --color-light--2: #ececec;
-    --color-light--3: rgb(214, 222, 224);
-    --navbar-height:3rem;
-    --sidebar-width:15rem;
-  }
+    --color-light--3: rgb(226, 226, 226);
+    --median-screen: 48em;
+    --navbar-height: 3.5rem;
+    --sidebar-width: 12rem;
+}
 
-
-*{
+* {
     box-sizing: border-box;
+    font-family: 'Noto Sans TC', sans-serif;
 }
 
 @media(max-width:1024px) {
     html {
         font-size: 80%;
+    }
+}
+@media(max-width:768px) {
+    html {
+        font-size: 65%;
     }
 }
