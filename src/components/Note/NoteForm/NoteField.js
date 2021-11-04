@@ -11,7 +11,7 @@ const checkInput = (input, themes) => {
                         <option />
                         {themes.map(theme => {
                             return (
-                                <option value={theme.type}>{theme.name}</option>
+                                <option key={theme.name} value={theme.type}>{theme.name}</option>
                             )
                         })}
                         <option value="others">其他</option>

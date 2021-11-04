@@ -1,8 +1,9 @@
 :root {
-    --color-brand--1: #ffb545;
+    --color-brand--1: #05aa5d;
     --color-brand--2: #00c46a;
     --color-dark--1: #2d3439;
     --color-dark--2: #42484d;
+    --color-dark--3: #595f64;
     --color-light--1: #aaa;
     --color-light--2: #ececec;
     --color-light--3: rgb(226, 226, 226);
@@ -14,7 +15,20 @@
 * {
     box-sizing: border-box;
     font-family: 'Noto Sans TC', sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
+
+body::-webkit-scrollbar {
+    width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: var(--color-dark--2);
+}
+body::-webkit-scrollbar-thumb {
+    background-color: #8b93df;
+}
+
 
 @media(max-width:1024px) {
     html {

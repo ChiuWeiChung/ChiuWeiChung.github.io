@@ -1,6 +1,6 @@
 import React from 'react'
 import Navigation from '../components/Navigation/Navigation';
-import NewSideBar from '../components/NewSideBar/newSideBar';
+import SideBar from '../components/SideBar/SideBar';
 import Aux from './Auxiliary.js';
 class Layout extends React.Component {
 
@@ -35,7 +35,7 @@ class Layout extends React.Component {
         return (
             <Aux>
                 <Navigation clicked={this.sideBarToggler} />
-                <NewSideBar showSideBar={this.state.showSideBar} showList={this.state.showList} listToggler={this.listToggler} sideBarToggler={this.sideBarToggler} />
+                <SideBar showSideBar={this.state.showSideBar} showList={this.state.showList} listToggler={this.listToggler} sideBarToggler={this.sideBarToggler} />
                 {this.props.children}
             </Aux>
         )

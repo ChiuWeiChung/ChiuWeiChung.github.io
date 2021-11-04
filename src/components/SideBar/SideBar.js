@@ -1,10 +1,10 @@
-import classes from './newSideBar.module.css';
+import classes from './SideBar.module.css';
 import { connect } from 'react-redux';
 import Loader from '../UI/Loader/Loader';
 import { Link } from 'react-router-dom'
 
-function newSideBar(props) {
-    let sideBarStyle = props.showSideBar ? [classes.NewSideBar, classes.ShowSideBar].join(' ') : [classes.NewSideBar];
+function SideBar(props) {
+    let sideBarStyle = props.showSideBar ? [classes.SideBar, classes.ShowSideBar].join(' ') : [classes.SideBar];
 
     const subjectClicker = (e) => {
         const subject = e.target.closest(`.${classes.Subject}`);
@@ -13,8 +13,9 @@ function newSideBar(props) {
     // console.log('sidebar page', props.notes);
 
     const renderSubject = () => {
-        if (!props.themes.length) return <Loader></Loader>
-        const themesWithoutPortfolio = props.themes.filter(el=>el.type!=='portfolio');
+        if (!props.themes.length && !props.errorMessage) return <Loader></Loader>
+        if (props.errorMessage && !props.themes.length) return props.errorMessage
+        const themesWithoutPortfolio = props.themes.filter(el => el.type !== 'portfolio');
         return themesWithoutPortfolio.map(theme => {
             return (
                 <div key={theme._id} className={classes.Subject}>
@@ -45,8 +46,9 @@ function newSideBar(props) {
 
 const mapStateToProps = (state) => {
     return {
-        themes: state.notes.themes
+        themes: state.notes.themes,
+        errorMessage: state.notes.errorMessage
     }
 }
 
-export default connect(mapStateToProps)(newSideBar)
+export default connect(mapStateToProps)(SideBar)

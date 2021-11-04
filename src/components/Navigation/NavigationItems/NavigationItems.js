@@ -9,7 +9,7 @@ const navigationItems = (props) => {
                 <NavLink to="/portfolio">作品集</NavLink>
             </li>
             <li className={classes.sweep}>
-                <NavLink to="/about">關於我</NavLink>
+                <NavLink to="/aboutme">關於我</NavLink>
             </li>
         </ul>
 

@@ -57,8 +57,8 @@ const NoteForm = (props) => {
         if (values.img) postData.detail.img = values.img;
 
         // should changed to if (props.token) {...}
-        if (props.id) {
-            props.submitNote(postData, props.id, props.history)
+        if (props.token) {
+            props.submitNote(postData, props.token, props.history)
         }
     };
     return (
@@ -88,7 +88,7 @@ const NoteForm = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        id: state.auth.id
+        token: state.auth.token
     }
 }
 

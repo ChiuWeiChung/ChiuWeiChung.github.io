@@ -1,4 +1,5 @@
 import React from 'react';
+import Search from '../Search/Search';
 import Hamburger from '../UI/Hamburger/Hamburger';
 import NavigationItems from './NavigationItems/NavigationItems';
 import classes from './Navigation.module.css';
@@ -22,8 +23,12 @@ const navigation = (props) => {
             <div className={classes.Logo}><i className="fas fa-code"></i>
                 <Link to="/"> Rick的開發筆記</Link>
             </div>
-            <NavigationItems />
             <Hamburger clicked={props.clicked} />
+            <Link className={classes.HomeIcon} to="/">
+                <i className="fas fa-home"></i>
+            </Link>
+            <Search />
+            <NavigationItems />
             {renderAuthInfo()}
         </div >
     )

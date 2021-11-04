@@ -1,0 +1,89 @@
+.Search {
+    display: flex;
+    align-items: center;
+    color: var(--color-dark--1);
+    position: relative;
+}
+
+.Search i {
+    position: absolute;
+    left: 0.5rem;
+    font-size: .8rem;
+}
+
+.Search input {
+    border: none;
+    border-radius: 1rem;
+    outline: none;
+    box-shadow: 0 1px 6px 0 rgb(32 36 33 / 75%);
+    padding-left: 25px;
+    color: inherit;
+    width: 100%;
+    min-width: 0;
+    height: 25px;
+    transition: .2s all;
+}
+
+.Search input:focus {
+    background-color: var(--color-dark--2);
+    color: var(--color-light--2);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.Search input::placeholder {
+    color: inherit;
+    opacity: .8;
+}
+
+.Search .Result {
+    position: absolute;
+    transform: translateY(100%);
+    bottom: 0;
+    width: 100%;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    background-color: white;
+    box-shadow: 0 1rem 2rem 0 rgb(32 36 33 / 39%);
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s;
+    overflow: hidden;
+}
+
+.Search input:focus + .Result{
+    opacity: .9;
+    visibility: visible;
+}
+
+.Result .FilteredResult{
+    padding:.5rem 1rem;
+    cursor: pointer;
+    font-size: .8rem;
+}
+
+.Result .FilteredResult:hover{
+    background-color: var(--color-light--2);
+}
+
+/* @media(max-width:768px) {
+    .Search {
+        margin-right: 3rem;
+        color: white;
+        cursor: pointer;
+    }
+    .Search i {
+        transform: translateX(0);
+    }
+    .Search input {
+        width: 80%;
+        position: absolute;
+        bottom: -3rem;
+        right: 0;
+        box-shadow: 0 2px 4px #00000085;
+        height: 3rem;
+        visibility: hidden;
+        opacity: 0;
+        background-color: var(--color-dark--2);
+    }
+} */

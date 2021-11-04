@@ -2,10 +2,23 @@
     top: var(--navbar-height);
     position: absolute;
     left: var(--sidebar-width);
-    padding: 0 1rem 5rem 1rem;
+    padding: 0 1rem;
     width: calc(100% - var(--sidebar-width));
     min-height: calc(100vh - var(--navbar-height));
-    background-color: var(--color-light--3);
+    background-color: var(--color-light--2);
+}
+
+.Container {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.MainTitle {
+    background-image: linear-gradient(to right bottom, rgba(41, 152, 255, 0.85), rgba(86, 67, 250, 0.85));
+    -webkit-background-clip: text;
+    background-clip: text;
+    letter-spacing: 2px;
+    color: transparent;
 }
 
 .Content {
@@ -17,73 +30,164 @@
 }
 
 .Content .Item {
-    width: 30%;
-    margin: 1rem 1.6%;
-    border: .5px solid rgba(0, 0, 0, .125);
-    border-radius: 3%;
-    overflow: hidden;
-    transition: all .3s;
+    width: 25%;
+    margin: 1.5rem 4%;
     cursor: pointer;
-    position: relative;
-    background-color: var(--color-light--2);
-    box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 15%);
+    background-color: transparent;
     text-decoration: none;
     color: inherit;
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+    position: relative;
+    height: 25rem;
 }
 
-.Caption {
-    position: absolute;
-    color: white;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, 20%);
-    text-transform: uppercase;
-    font-size: 1.7rem;
-    text-align: center;
-    opacity: 0;
-    transition: all 0.5s;
-    backface-visibility: hidden;
-}
-
-.Content .Item:hover {
-    transform: translateY(-5px);
-}
-
-.Content .Item:hover .ImgContainer {
-    filter: brightness(80%);
-}
-
-.Content .Item:hover .Caption {
-    opacity: 1;
-    transform: translate(-50%, -80px);
+.Content .ImgContainer {
+    height: 100%;
 }
 
 .Content .ImgContainer img {
     width: 100%;
-    height: 18rem;
+    height: 100%;
     object-fit: cover;
     vertical-align: bottom;
 }
 
 .Content .TextContainer {
+    text-align: left;
+    position: absolute;
+    top: 0;
     padding: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-light--3);
+    opacity: .8;
+    width: 100%;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 60%, 0 100%);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
-.TextContainer .Title {
-    margin: .5rem;
-    color: var(--color-dark--2);
+.Back .Description {
+    position: absolute;
+    width: 100%;
+    padding: .5rem 1rem;
+    line-height: 2;
+    height: 100%;
 }
 
-.TextContainer .Description {
-    font-size: 12px;
-    line-height: 1.8;
+/* Card feature */
+
+.Front, .Back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 1rem 2rem rgb(0 0 0 / 35%);
+    -webkit-box-shadow: 0 1rem 2rem rgb(0 0 0 / 35%);
+    transition: all 1s ease;
+    -webkit-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.Back {
+    transform: rotateY(-180deg);
+    overflow: visible;
+}
+
+.Item:hover .Front {
+    transform: rotateY(180deg);
+}
+
+.Item:hover .Back {
+    transform: rotateY(0deg);
+}
+
+.BackImgContainer {
+    height: 100%;
+    background-size: cover;
+}
+
+.ViewButton {
+    position: absolute;
+    background-color: var(--color-light--2);
+    color: var(--color-dark--1);
+    border-radius: 10rem;
+    width: 60%;
+    padding: 0.5rem;
+    bottom: 1rem;
+    opacity: .8;
+    left: 50%;
+    transform: translateX(-50%);
+    text-transform: uppercase;
+    text-align: center;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: all .5s;
+}
+
+.Item:hover .ViewButton:hover {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 1;
+}
+
+.BackTextContainer {
+    text-align: left;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    opacity: 0;
+    width: 100%;
+    z-index: 5000;
+    transition: all 1s;
+}
+
+.Item:hover .BackTextContainer {
+    transform: translate(-50%, -3rem);
+    opacity: 1;
+}
+
+.ViewButton::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s;
+}
+
+.ViewButton:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    background-color: var(--color-light--2);
+    opacity: 0;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: 10rem;
+    transition: all 0.4s;
 }
 
 @media(max-width:1024px) {
     .Content .Item {
-        width: 45%;
-        margin: 1rem 2.5%;
+        width: 40%;
+        margin: 1.5rem 5%;
     }
 }
 
@@ -99,7 +203,7 @@
         justify-content: center;
     }
     .Content .Item {
-        width: 80%;
-        margin: 1rem 10%;
+        width: 70%;
+        margin: 1.5rem 15%;
     }
 }

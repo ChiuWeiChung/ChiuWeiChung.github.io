@@ -1,26 +1,25 @@
-.NewSideBar {
+.SideBar {
     position: fixed;
     top: var(--navbar-height);
     left: 0;
     width: var(--sidebar-width);
     height: calc(100vh - var(--navbar-height));
-    background-color: var(--color-dark--2);
+    background-color: var(--color-dark--3);
     color: var(--color-light--2);
     padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow-y: auto;
-    z-index: 2000;
+    z-index: 999;
     font-size: .8rem;
-    transition: all .5s;
 }
 
-.NewSideBar::-webkit-scrollbar {
+.SideBar::-webkit-scrollbar {
     width: 5px;
 }
 
-.NewSideBar::-webkit-scrollbar-thumb {
+.SideBar::-webkit-scrollbar-thumb {
     background-color: #8b93df;
 }
 
@@ -38,7 +37,7 @@
 }
 
 .Subject .Title:hover {
-    background-color: #346ebd;
+    background-color: var(--color-brand--2);
     box-shadow: 0px 1rem 2rem #1818187c;
 }
 
@@ -66,28 +65,31 @@
 .List li {
     cursor: pointer;
     width: 100%;
-    background-color: #5d6179;
+    background-color: var(--color-light--3);
     text-align: left;
     transition: .2s all;
 }
 
 .List li:hover {
     background-color: var(--color-light--2);
-    color: rgb(74 97 198);
 }
 
 .List li a {
     text-decoration: none;
-    color: inherit;
+    color: var(--color-dark--2);
     height: 2.5rem;
     width: 100%;
     padding: .6rem;
     padding-left: 1.5rem;
     display: block;
 }
+.List li:hover a {
+    color: var(--color-brand--1);
+    text-decoration: underline;
+}
 
 @media (max-width:768px) {
-    .NewSideBar {
+    .SideBar {
         visibility: hidden;
         height: 0;
         width: 100%;

@@ -1,15 +1,54 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import classes from './AuthPage.module.css';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
-import { signIn } from '../../store/actions/auth';
+import { signIn, signInSecond, signOut } from '../../store/actions/auth';
+import Loader from '../UI/Loader/Loader';
 
 function AuthPage(props) {
+
+    const [sec, setSec] = useState(60);
+
+    useEffect(() => {
+
+        let timer;
+        if (props.auth.email) {
+            timer = setTimeout(() => {
+                setSec(prevSec => prevSec - 1);
+            }, 1000)
+        }
+
+        if (sec === 0) {
+            clearTimeout(timer);
+            props.signOut();
+            props.history.push('/');
+        }
+
+        return () => clearTimeout(timer)
+    }, [sec, props])
+
     const onSubmit = async (values) => {
-        props.signIn(values, props.history);
+        props.signIn(values, setSec);
     };
 
-    if (!props.auth.isSignIn) {
+    const sendVerifyNumber = (values) => {
+        props.signInSecond(values,props.history);
+    }
+
+    const renderLoader = () => {
+        if (props.auth.showLoader) {
+            return <Loader></Loader>
+        }
+
+        if (props.auth.errorMessage) {
+            return (
+                <p style={{ color: 'red', fontWeight: 'bold', textAlign: 'center' }}>Unable to LogIn  !!!</p>
+            )
+        }
+    }
+
+
+    if (!props.auth.email) {
         return (
             <div className={classes.AuthPage}  >
                 <Form
@@ -37,7 +76,31 @@ function AuthPage(props) {
                         </form>
                     )}
                 />
-
+                {renderLoader()}
+            </div>
+        )
+    } else {
+        return (
+            <div className={classes.AuthPage}  >
+                <Form
+                    onSubmit={sendVerifyNumber}
+                    render={({ handleSubmit, form, invalid, values }) => (
+                        <form onSubmit={handleSubmit}>
+                            <label>Verify Number</label>
+                            <Field
+                                component="input"
+                                type='text'
+                                name="verifyNumber"
+                                placeholder=""
+                            ></Field>
+                            <button className={classes.Login} type="submit" >
+                                Send
+                            </button>
+                            <h3>{sec} s</h3>
+                        </form>
+                    )}
+                />
+                {renderLoader()}
             </div>
         )
     }
@@ -51,5 +114,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps, { signIn })(AuthPage)
-// export default AuthPage
+export default connect(mapStateToProps, { signIn, signInSecond, signOut })(AuthPage)

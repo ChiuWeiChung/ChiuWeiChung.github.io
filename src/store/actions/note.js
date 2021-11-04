@@ -1,11 +1,11 @@
 import axios from 'axios';
-import dbURL from '../../config/dbURL';
+import apiURL from '../../config/apiURL';
 
 
 export const fetchNote = () => {
     return async (dispatch) => {
         try {
-            const res = await axios.get(`${dbURL}/all`);
+            const res = await axios.get(`${apiURL}/note/all`);
             dispatch({ type: 'FETCH_NEWNOTE_SUCCESS', payload: res.data })
         } catch (err) {
 
@@ -16,10 +16,9 @@ export const fetchNote = () => {
 }
 
 
-export const submitNote = (values, id, history) => {
+export const submitNote = (values, token, history) => {
     return async (dispatch) => {
-        const res = await axios.post(`${dbURL}/new`, { values, id });
-        // console.log(values)
+        const res = await axios.post(`${apiURL}/note/new`, { values }, { headers: { 'Authorization': `Bearer ${token}` } });
         history.push('/');
         dispatch({ type: 'SUBMIT_NOTE', payload: res.data })
     }
@@ -30,7 +29,7 @@ export const fetchMarkdown = (obj) => {
     return async dispatch => {
         dispatch({ type: 'FECTH_MARKDOWN_START' })
         try {
-            const res = await axios.get(`${dbURL}/${obj.themeId}/${obj.noteId}`);
+            const res = await axios.get(`${apiURL}/note/${obj.themeId}/${obj.noteId}`);
             if (!res.data) {
                 throw new Error('Markdown does not exist');
             }
