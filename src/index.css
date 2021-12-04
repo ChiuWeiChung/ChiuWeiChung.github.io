@@ -1,40 +1,60 @@
 :root {
-    --color-brand--1: #05aa5d;
-    --color-brand--2: #00c46a;
-    --color-dark--1: #2d3439;
-    --color-dark--2: #42484d;
+    --color-brand--1: #326AAE;
+    --color-brand--2: #E0E5E9;
+    --color-orange--1: #dec95b;
+    --color-dark--1: #191718;
+    --color-dark--2: #444242;
+    --color-dark--2-transparent: #444242ba;
     --color-dark--3: #595f64;
     --color-light--1: #aaa;
     --color-light--2: #ececec;
     --color-light--3: rgb(226, 226, 226);
     --median-screen: 48em;
     --navbar-height: 3.5rem;
-    --sidebar-width: 12rem;
+    --sidebar-width: 14rem;
 }
 
 * {
     box-sizing: border-box;
-    font-family: 'Noto Sans TC', sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
 
-body::-webkit-scrollbar {
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+    overflow: hidden;
+}
+
+.Main-Container{
+    position: absolute;
+    top: var(--navbar-height);
+    left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    height: calc(100vh - var(--navbar-height));
+    overflow: auto;
+}
+
+
+.Main-Container::-webkit-scrollbar {
     width: 5px;
 }
 
-body::-webkit-scrollbar-track {
+.Main-Container::-webkit-scrollbar-track {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border-radius: 10px;
+}
+.Main-Container::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
     background-color: var(--color-dark--2);
 }
-body::-webkit-scrollbar-thumb {
-    background-color: #8b93df;
-}
-
 
 @media(max-width:1024px) {
     html {
         font-size: 80%;
     }
 }
+
 @media(max-width:768px) {
     html {
         font-size: 65%;

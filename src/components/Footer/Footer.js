@@ -1,9 +1,9 @@
 import calsses from  './Footer.module.css';
 
 
-function footer() {
+function footer(props) {
     return (
-        <div className={calsses.Footer}>
+        <div className={calsses.Footer} style={props.layout} >
             <h3 className="footer__title">&copy; Designed by <i className="fab fa-github"></i>
                 <a href="https://github.com/ChiuWeiChung"> Rick Chiu</a>
             </h3>

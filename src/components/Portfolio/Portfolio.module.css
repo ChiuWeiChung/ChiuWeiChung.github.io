@@ -1,11 +1,6 @@
 .Portfolio {
-    top: var(--navbar-height);
-    position: absolute;
-    left: var(--sidebar-width);
-    padding: 0 1rem;
-    width: calc(100% - var(--sidebar-width));
-    min-height: calc(100vh - var(--navbar-height));
     background-color: var(--color-light--2);
+    padding: 0 1rem;
 }
 
 .Container {
@@ -14,7 +9,7 @@
 }
 
 .MainTitle {
-    background-image: linear-gradient(to right bottom, rgba(41, 152, 255, 0.85), rgba(86, 67, 250, 0.85));
+    background-image: linear-gradient(to right bottom, var(--color-brand--1), var(--color-dark--2));
     -webkit-background-clip: text;
     background-clip: text;
     letter-spacing: 2px;
@@ -26,12 +21,14 @@
     align-items: center;
     justify-content: flex-start;
     width: 100%;
+    margin-top: 2rem;
     flex-wrap: wrap;
 }
 
 .Content .Item {
-    width: 25%;
-    margin: 1.5rem 4%;
+    width: 16rem;
+    margin: 0 2%;
+    margin-bottom: 2.5rem;
     cursor: pointer;
     background-color: transparent;
     text-decoration: none;
@@ -39,47 +36,60 @@
     perspective: 150rem;
     -moz-perspective: 150rem;
     position: relative;
-    height: 25rem;
+    height: 24rem;
 }
 
 .Content .ImgContainer {
-    height: 100%;
+    width: 95%;
+    border-radius: 10px;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
 .Content .ImgContainer img {
     width: 100%;
-    height: 100%;
     object-fit: cover;
     vertical-align: bottom;
+
+    animation-name: moveInBottom;
+    animation-duration: 1.2s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(3rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .Content .TextContainer {
     text-align: left;
     position: absolute;
+    padding-left: 0.25rem;
+    width: 100%;
     top: 0;
-    padding: 1rem;
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--color-light--3);
-    opacity: .8;
-    width: 100%;
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-    clip-path: polygon(0 0, 100% 0, 100% 60%, 0 100%);
+    background-color: var(--color-brand--1);
+    opacity: .9;
+    color: var(--color-light--2);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
 
-.Back .Description {
-    position: absolute;
-    width: 100%;
-    padding: .5rem 1rem;
-    line-height: 2;
-    height: 100%;
-}
 
 /* Card feature */
 
 .Front, .Back {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: linear-gradient(to bottom right, var(--color-brand--2), var(--color-light--3));
     width: 100%;
     height: 100%;
     position: absolute;
@@ -99,6 +109,34 @@
 .Back {
     transform: rotateY(-180deg);
     overflow: visible;
+    background-image: linear-gradient(to right bottom, var(--color-brand--1), var(--color-dark--2));
+}
+
+
+
+.Back .Description {
+    position: absolute;
+    color: var(--color-light--2);
+    width: 100%;
+    padding: .5rem 1rem;
+    line-height: 2;
+    height: 100%;
+}
+
+.Back ul {
+    color: var(--color-light--2);
+    display: flex;
+    height: 85%;
+    padding-left: 1.5rem;
+    padding-right: 1rem;
+    font-size: .8rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.Back ul li {
+    margin-bottom: 1.5rem;
 }
 
 .Item:hover .Front {
@@ -109,15 +147,11 @@
     transform: rotateY(0deg);
 }
 
-.BackImgContainer {
-    height: 100%;
-    background-size: cover;
-}
 
 .ViewButton {
     position: absolute;
-    background-color: var(--color-light--2);
-    color: var(--color-dark--1);
+    background-color: var(--color-dark--1);
+    color: var(--color-light--2);
     border-radius: 10rem;
     width: 60%;
     padding: 0.5rem;
@@ -151,7 +185,7 @@
 }
 
 .Item:hover .BackTextContainer {
-    transform: translate(-50%, -3rem);
+    transform: translate(-50%, -2.5rem);
     opacity: 1;
 }
 
@@ -184,17 +218,22 @@
     transition: all 0.4s;
 }
 
-@media(max-width:1024px) {
+/* @media(max-width:1024px) {
     .Content .Item {
         width: 40%;
         margin: 1.5rem 5%;
     }
-}
+} */
 
 @media(max-width:768px) {
     .Portfolio {
         left: 0;
         width: 100%;
+    }
+
+    .Content .Item {
+        width: 21rem;
+        height: 28rem;
     }
 }
 
@@ -202,8 +241,9 @@
     .Content {
         justify-content: center;
     }
+
     .Content .Item {
-        width: 70%;
-        margin: 1.5rem 15%;
+        width: 24rem;
+        height: 32rem;
     }
 }

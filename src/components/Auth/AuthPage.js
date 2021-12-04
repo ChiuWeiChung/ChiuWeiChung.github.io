@@ -50,7 +50,7 @@ function AuthPage(props) {
 
     if (!props.auth.email) {
         return (
-            <div className={classes.AuthPage}  >
+            <div className={[classes.AuthPage, 'Main-Container'].join(' ')}  >
                 <Form
                     onSubmit={onSubmit}
                     render={({ handleSubmit, form, invalid, values }) => (
@@ -81,7 +81,7 @@ function AuthPage(props) {
         )
     } else {
         return (
-            <div className={classes.AuthPage}  >
+            <div className={[classes.AuthPage, 'Main-Container'].join(' ')}  >
                 <Form
                     onSubmit={sendVerifyNumber}
                     render={({ handleSubmit, form, invalid, values }) => (

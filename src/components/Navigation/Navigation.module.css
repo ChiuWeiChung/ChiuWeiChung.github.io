@@ -7,7 +7,7 @@
     z-index: 1000;
     display: flex;
     align-items: center;
-    background-color: rgb(74 97 198);
+    background-color: var(--color-brand--1);
     box-shadow: 0 1px 6px 0 rgb(32 33 36 / 28%);
     font-size: 1.2rem;
 }
@@ -42,9 +42,9 @@
     border: none;
     border-radius: 5px;
     margin: 0 1rem;
-    background-color: #f8bb22;
+    background-color: var(--color-orange--1);
     font-size: 1.2rem;
-    color: white;
+    color: var(--color-dark--2);
     cursor: pointer;
 }
 

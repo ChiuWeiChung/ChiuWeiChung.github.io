@@ -2,13 +2,12 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import classes from './Note.module.css';
 import hljs from 'highlight.js';
-import Loader from '../UI/Loader/Loader';
+import NoteLoader from '../UI/NoteLoader/NoteLoader';
 import 'highlight.js/styles/stackoverflow-light.css';
 import Footer from '../Footer/Footer';
-import Aux from '../../hoc/Auxiliary';
 import 'github-markdown-css/github-markdown.css';
 import { connect } from 'react-redux';
-import { fetchMarkdown } from '../../store/actions/note'
+import { fetchMarkdown, deleteNote } from '../../store/actions/note'
 
 class Note extends React.Component {
 
@@ -36,29 +35,49 @@ class Note extends React.Component {
         return obj
     }
 
-    render() {
-        let style = ['markdown-body', classes.Note].join(' ');
-        let renderContent = <div style={{ width: '10rem',margin:'auto',transform:'translateY(5rem)' }}><Loader /></div>
+    goEditPage = () => {
+        let idObj = this.extractSearchParams(this.props.location.search);
+        this.props.history.push(`/note/edit?themeId=${idObj.themeId}&noteId=${idObj.noteId}`)
+    }
 
+    deleteNote = () => {
+        let idObj = this.extractSearchParams(this.props.location.search);
+        this.props.deleteNote(this.props.auth.token, this.props.history, idObj)
+    }
+
+    render() {
+        let style = ['markdown-body', classes.Note, 'Main-Container'].join(' ');
+        let renderContent = <NoteLoader />;
+        let swhoEdit = null;
         if (this.props.notes.fetchedMarkdown) {
             renderContent = (
-                <Aux>
+                <React.Fragment>
                     <Markdown>{this.props.notes.fetchedMarkdown}</Markdown>
                     <Footer />
-                </Aux>
+                </React.Fragment>
             )
         }
 
         if (this.props.notes.errorMessage) {
             renderContent = (
-                <Aux>
+                <React.Fragment>
                     <h2>Sorry! Something Went Wrong~</h2>
                     <p>{this.props.notes.errorMessage}</p>
-                </Aux>
+                </React.Fragment>
+            )
+        }
+
+        if (this.props.auth.isSignIn) {
+            swhoEdit = (
+                <div className={classes.ShowEdit}>
+                    <button onClick={this.goEditPage} className={classes.EditButton}>Edit</button>
+                    <button onClick={this.deleteNote} className={classes.DeleteButton}>Delete</button>
+                </div>
             )
         }
         return (
             <div className={style}>
+                {swhoEdit}
                 {renderContent}
             </div>
         )
@@ -67,9 +86,10 @@ class Note extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        notes: state.notes
+        notes: state.notes,
+        auth: state.auth
     }
 }
 
 
-export default connect(mapStateToProps, { fetchMarkdown })(Note)
+export default connect(mapStateToProps, { fetchMarkdown, deleteNote })(Note)

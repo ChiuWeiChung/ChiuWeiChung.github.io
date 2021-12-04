@@ -13,7 +13,7 @@ const navigation = (props) => {
         if (props.auth.isSignIn) {
             return (
                 <Aux>
-                    <button className={classes.SignoutButton} onClick={props.signOut}>Sign Out</button>
+                    <button className={classes.SignoutButton} onClick={props.signOut}>登出</button>
                 </Aux>
             )
         }

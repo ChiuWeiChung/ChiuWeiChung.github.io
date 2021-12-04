@@ -1,11 +1,6 @@
 .Home {
-    top: var(--navbar-height);
-    position: absolute;
-    left: var(--sidebar-width);
     padding: 0 1rem 5rem 1rem;
-    width: calc(100% - var(--sidebar-width));
-    min-height: calc(100vh - var(--navbar-height));
-    background-color: var(--color-light--2);
+    background-color: var(--color-brand--2);
 }
 
 .Container {
@@ -13,17 +8,35 @@
     width: 95%;
 }
 
-.MainTitle {
-    background-image: linear-gradient(to right bottom, rgba(41, 152, 255, 0.85), rgba(86, 67, 250, 0.85));
+.Header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Header h1 {
+    background-image: linear-gradient(to right bottom, var(--color-brand--1), var(--color-dark--2));
     -webkit-background-clip: text;
     background-clip: text;
     letter-spacing: 2px;
     color: transparent;
 }
 
+
+.Header a {
+    font-size: 3rem;
+    color: rgb(74 97 198);
+    text-decoration: none;
+    margin-right: 2rem;
+    transition: all .3s;
+}
+.Header a:hover{
+    transform: scale(1.2);
+}
+
 .Subject {
-    border: 2px solid #dadce0;
-    border-radius: 8px;
+    border: 2px solid var(--color-brand--1);
+    border-radius: 10px;
     padding: 0 1rem;
     min-height: 10rem;
     width: 85%;
@@ -42,9 +55,9 @@
 
 .Subject .Title {
     font-size: 1.5rem;
+    margin: 5px 0;
     font-weight: bold;
     text-decoration: none;
-    margin-bottom: .5rem;
     color: var(--color-dark--2);
 }
 
@@ -55,11 +68,11 @@
 
 .Subject .Date {
     font-size: .8rem;
+    color: var(--color-dark--1);
 }
 
 .Subject .Desc {
     font-size: 1rem;
-    padding: 1rem 0;
 }
 
 @media(max-width:768px) {
@@ -68,7 +81,7 @@
         width: 100%;
     }
 
-    .Subject{
+    .Subject {
         width: 100%;
     }
 }

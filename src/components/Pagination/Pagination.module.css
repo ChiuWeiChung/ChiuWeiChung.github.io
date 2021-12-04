@@ -1,6 +1,6 @@
 .Pagination {
     width: 100%;
-    color: blueviolet;
+    color: var(--color-dark--1);
     margin-top: 1rem;
     display: flex;
     justify-content: space-around;
@@ -9,17 +9,3 @@
 .Pagination div{
     cursor: pointer;
 }
-
-/* .Pagination .item {
-    width: 5%;
-    text-align: center;
-} */
-
-/* .Pagination .currentitem {
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    width: 5%;
-    text-align: center;
-    background-color: #9cc6f7;
-    border-radius: 20%;
-} */

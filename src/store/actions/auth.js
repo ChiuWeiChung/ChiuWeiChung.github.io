@@ -20,10 +20,10 @@ export const signInSecond = (values, history) => {
         try {
             const res = await axios.post(`${apiURL}/user/login2nd`, { email: getState().auth.email, verifyNumber: values.verifyNumber });
             //============= Set local storage ==============
-            const expirationDate = new Date(new Date().getTime() + 600 * 1000);
+            const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('expirationDate', expirationDate);
-            dispatch(checkAuthTimeout(600));
+            dispatch(checkAuthTimeout(3600));
             // ==============================================
             history.push('/')
             dispatch({ type: 'SIGN_IN_SUCCESS', payload: res.data })

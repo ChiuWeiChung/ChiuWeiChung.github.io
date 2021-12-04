@@ -15,13 +15,28 @@ export const fetchNote = () => {
     }
 }
 
-
 export const submitNote = (values, token, history) => {
-    return async (dispatch) => {
-        const res = await axios.post(`${apiURL}/note/new`, { values }, { headers: { 'Authorization': `Bearer ${token}` } });
+    return async (dispatch, getState) => {
+        await axios.post(`${apiURL}/note/new`, { values }, { headers: { 'Authorization': `Bearer ${token}` } });
         history.push('/');
-        dispatch({ type: 'SUBMIT_NOTE', payload: res.data })
+        dispatch({ type: 'SUBMIT_NOTE', payload: !getState().notes.render });
     }
+}
+export const submitEditNote = (values, token, history, idObj) => {
+    return async (dispatch, getState) => {
+        await axios.patch(`${apiURL}/note/edit/${idObj.themeId}/${idObj.noteId}`, { values }, { headers: { 'Authorization': `Bearer ${token}` } });
+        history.push('/');
+        dispatch({ type: 'SUBMIT_NOTE', payload: !getState().notes.render })
+    }
+}
+
+export const deleteNote = (token,history,idObj)=>{
+    return async (dispatch, getState) => {
+        await axios.delete(`${apiURL}/note/delete/${idObj.themeId}/${idObj.noteId}`,  { headers: { 'Authorization': `Bearer ${token}` } });
+        history.push('/');
+        dispatch({ type: 'SUBMIT_NOTE', payload: !getState().notes.render })
+    }
+
 }
 
 

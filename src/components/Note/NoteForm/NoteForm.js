@@ -1,26 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './NoteForm.module.css';
 import { Form, Field } from 'react-final-form';
 import NoteField from './NoteField';
 import formFields from './formFields';
 import { connect } from 'react-redux';
-import { submitNote } from '../../../store/actions/note';
-
-
-const renderFields = (values) => {
-    return formFields.map((field) => {
-        if ((field.name === "newType" || field.name === "newTypeName") && values.type !== 'others') return null
-        return (
-            <Field
-                key={field.name}
-                component={NoteField}
-                type={field.type}
-                label={field.label}
-                name={field.name}
-            ></Field>
-        );
-    });
-}
+import { submitNote, submitEditNote } from '../../../store/actions/note';
 
 const validator = (values) => {
     const errors = {};
@@ -42,6 +26,42 @@ const validator = (values) => {
 
 
 const NoteForm = (props) => {
+    const [editValue, setEditValue] = useState(null);
+    const [idObj, setIDObject] = useState(null);
+    useEffect(() => {
+        const searchParams = new URLSearchParams(props.location.search);
+        let obj = {}
+        for (let key of searchParams) {
+            obj[key[0]] = key[1]
+        };
+        if (Object.keys(obj).length === 2) {
+            setIDObject(obj);
+            const choosedTheme = props.themes.find(theme => {
+                return theme._id === obj.themeId;
+            });
+            const choosedNote = choosedTheme.noteCollection.find(note => {
+                return note._id === obj.noteId;
+            })
+            setEditValue({ type: choosedTheme.type, ...choosedNote, updatedDate: choosedNote.updatedDate.replace('T00:00:00.000Z', '') });
+        }
+    }, [props.location.search,props.themes])
+
+    const renderFields = (values) => {
+        return formFields.map((field) => {
+            if ((field.name === "newType" || field.name === "newTypeName") && values.type !== 'others') return null
+            return (
+                <Field
+                    key={field.name}
+                    component={NoteField}
+                    initialValue={idObj ? editValue[field.name] : null}
+                    type={field.type}
+                    label={field.label}
+                    name={field.name}
+                ></Field>
+            );
+        });
+    }
+
     const onSubmit = async (values) => {
         const postData = {
             type: values.type === "others" ? values.newType : values.type,
@@ -53,17 +73,19 @@ const NoteForm = (props) => {
                 updatedDate: values.updatedDate
             }
         }
-
         if (values.img) postData.detail.img = values.img;
-
-        // should changed to if (props.token) {...}
         if (props.token) {
-            props.submitNote(postData, props.token, props.history)
+            if (!idObj) {
+                props.submitNote(postData, props.token, props.history)
+            } else {
+                props.submitEditNote(postData, props.token, props.history, idObj)
+
+            }
         }
     };
     return (
-        <div className={classes.Form}>
-            <h1 >Post The Note!</h1>
+        <div className={[classes.Form, 'Main-Container'].join(' ')}>
+            <h1 >{idObj ? 'Edit' : 'Post'} The Note!</h1>
             <Form
                 onSubmit={onSubmit}
                 validate={validator}
@@ -88,8 +110,9 @@ const NoteForm = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        token: state.auth.token
+        token: state.auth.token,
+        themes: state.notes.themes,
     }
 }
 
-export default connect(mapStateToProps, { submitNote })(NoteForm)
+export default connect(mapStateToProps, { submitNote, submitEditNote })(NoteForm)

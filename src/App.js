@@ -1,70 +1,59 @@
-import React from 'react';
+import React, { useEffect, Suspense } from 'react';
 import Layout from './hoc/Layout';
 import './App.css';
-//=====Route Component=====
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Note from './components/Note/Note';
-import AuthPage from './components/Auth/AuthPage';
-import NoteForm from './components/Note/NoteForm/NoteForm';
-import Portfolio from './components/Portfolio/Portfolio';
 import authRoute from './config/authRoute';
-import About from './components/About/About';
-import NewHome from './components/Home/NewHome';
 // =====redux====
 import { connect } from 'react-redux';
 import { fetchNote } from './store/actions/note';
 import { authCheckState } from './store/actions/auth';
+import NoteLoader from './components/UI/NoteLoader/NoteLoader';
+//=====Route Component=====
+const NoteForm = React.lazy(() => import('./components/Note/NoteForm/NoteForm'));
+const Note = React.lazy(() => import('./components/Note/Note'));
+const About = React.lazy(() => import('./components/About/About'));
+const AuthPage = React.lazy(() => import('./components/Auth/AuthPage'));
+const Portfolio = React.lazy(() => import('./components/Portfolio/Portfolio'));
+const Home = React.lazy(() => import('./components/Home/Home'));
 
 
-class App extends React.Component {
 
-  componentDidMount() {
-    this.props.fetchNote();
-    this.props.authCheckState();
-  }
+const App = (props) => {
+  useEffect(() => {
+    props.fetchNote();
+    props.authCheckState();
+  }, [props])
 
-  render() {
-    
-    let route = (
-      <Switch>
-        <Route exact path={authRoute} component={AuthPage} />
-        <Route path="/note" component={Note} />
-        <Route path="/portfolio" component={Portfolio} />
-        <Route path="/aboutme" component={About} />
-        <Route path="/" component={NewHome} />
-        <Redirect to="/" />
-      </Switch>
-    )
+  let route = (
+    <Switch>
+      {props.isSignIn && <Route path="/note/new" component={NoteForm} />}
+      {props.isSignIn && <Route path="/note/edit" component={NoteForm} />}
+      {!props.isSignIn && <Route exact path={authRoute} component={AuthPage} />}
+      <Route exact path="/note" component={Note} />
+      <Route path="/portfolio" component={Portfolio} />
+      <Route path="/aboutme" component={About} />
+      <Route path="/" component={Home} />
+      <Redirect to="/" />
+    </Switch>
+  )
 
-
-    if (this.props.isSignIn) {
-      route = (
-        <Switch>
-          <Route path="/note/new" component={NoteForm} />
-          <Route path="/note" component={Note} />
-          <Route path="/portfolio" component={Portfolio} />
-          <Route path="/aboutme" component={About} />
-          <Route path="/" component={NewHome} />
-          <Redirect to="/" />
-        </Switch>
-      )
-    }
-
-
-    return (
-      <div>
-        <Layout>
+  return (
+    <div>
+      <Layout>
+        <Suspense fallback={<div className='lazy-loader'><NoteLoader/></div>}>
           {route}
-        </Layout>
-      </div>
-    )
-  }
+        </Suspense>
+      </Layout>
+    </div>
+  )
+
 }
 
 
 const mapStateToProps = (state) => {
   return {
-    isSignIn: state.auth.isSignIn
+    isSignIn: state.auth.isSignIn,
+    renderListener: state.notes.render
   }
 }
 

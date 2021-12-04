@@ -1,44 +1,69 @@
 .About {
-    top: var(--navbar-height);
-    position: absolute;
-    left: var(--sidebar-width);
-    width: calc(100% - var(--sidebar-width));
-    min-height: calc(100vh - var(--navbar-height));
     background-image: linear-gradient(to right bottom, var(--color-light--2), rgb(13 17 20 / 65%)), url('../../assets//images/christopher-gower-m_HRfLhgABo-unsplash.jpg');
     background-size: cover;
     background-position: bottom;
+    transition: all 1s;
 }
 
 .Name {
     text-align: center;
+    margin: .5rem auto;
     color: var(--color-dark--2);
 }
 
-.Story {
-    width: 75%;
-    margin: 0 auto;
-    box-shadow: 0 3rem 6rem rgb(255 255 255 / 30%);
-    background-color: rgb(255 255 255 / 50%);
+
+.Bookmark .List {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    align-items: center;
+}
+
+.Bookmark .List .Item {
     border-radius: 5px;
-    font-size: 1.6rem;
-    -webkit-transform: skewX( -12deg);
-    -ms-transform: skewX(-12deg);
-    transform: skewX( -12deg);
+    color: var(--color-light--3);
+    margin: 5px 1rem;
+    /* transition: .3s all; */
+}
+
+
+
+.TagButton.Active {
+    background-color: var(--color-orange--1);
+    color: var(--color-dark--2);
+    transform: scale(1.2);
+    box-shadow: 0 2px 4px #00000073;
+}
+
+.TagButton {
+    cursor: pointer;
+    background-color: var(--color-brand--1);
+    color: var(--color-light--3);
+    font-weight: bold;
+    transition: all .3s;
+    width: max-content;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
+}
+
+.Story {
+    width: 70%;
+    margin: 1rem auto;
+    border-radius: 5px;
+    font-size: 1rem;
 }
 
 .ImgContainer {
     float: left;
-    transform: translateX(-3rem) skewX( 12deg);
-    width: 10rem;
-    height: 10rem;
+    transform: translateY(-3.5rem);
+    width: 6.5rem;
+    height: 6.5rem;
     border-radius: 50%;
     position: relative;
     overflow: hidden;
+    z-index: 1;
     margin: 0 auto;
-    clip-path: circle(50% at 50% 50%);
-    -webkit-clip-path: circle(50% at 50% 50%);
-    -webkit-shape-outside: circle(50% at 50% 50%);
-    shape-outside: circle(50% at 50% 50%);
 }
 
 .ImgContainer .Me {
@@ -47,21 +72,51 @@
 }
 
 .Content {
-    margin: 1rem auto;
-    width: 80%;
+    margin: .5rem auto;
+    width: 70%;
+    overflow-y: auto;
+    max-height: 22rem;
+    position: absolute;
+    transform: translate(-50%);
+    left: 50%;
+    color: var(--color-light--3);
+    font-size: 1rem;
     border-radius: 1rem;
-    transform: skewX( 12deg);
-    padding: 1.5rem;
+    padding: .5rem 1rem;
     line-height: 1.8;
-    font-size: 1.2rem;
+    background-color: #2d3439cf;
     letter-spacing: .5px;
+    transition: all .3s;
+    opacity: 0;
+}
+
+.Content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.Content::-webkit-scrollbar-track {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border-radius: 10px;
+}
+
+
+.Content::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: var(--color-brand--2);
 }
 
 @media(max-width:768px) {
     .About {
         left: 0;
         width: 100%;
-        background-image: linear-gradient(to right bottom,var(--color-light--2), rgb(13 17 20 / 65%)), url('../../assets/images/gabriel-beaudry-5X5dCf4Pp44-unsplash.jpg');        
+        background-image: linear-gradient(to right bottom, var(--color-light--2), rgb(13 17 20 / 65%)), url('../../assets/images/gabriel-beaudry-5X5dCf4Pp44-unsplash.jpg');
         background-position: top;
+    }
+
+    .Content {
+        max-height: 44rem;
+        width: 95%;
     }
 }

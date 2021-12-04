@@ -1,16 +1,16 @@
+import {useState} from 'react';
 import classes from './SideBar.module.css';
 import { connect } from 'react-redux';
 import Loader from '../UI/Loader/Loader';
 import { Link } from 'react-router-dom'
 
 function SideBar(props) {
+     const [showHeight,setShowHeight]= useState(false);
     let sideBarStyle = props.showSideBar ? [classes.SideBar, classes.ShowSideBar].join(' ') : [classes.SideBar];
-
     const subjectClicker = (e) => {
         const subject = e.target.closest(`.${classes.Subject}`);
         subject.childNodes[1].classList.toggle(classes.Show);
     }
-    // console.log('sidebar page', props.notes);
 
     const renderSubject = () => {
         if (!props.themes.length && !props.errorMessage) return <Loader></Loader>
@@ -20,8 +20,9 @@ function SideBar(props) {
             return (
                 <div key={theme._id} className={classes.Subject}>
                     <div className={classes.Title} onClick={subjectClicker}>
+                        <img style={showHeight?{height:'2rem',opacity:'1'}:null} src={theme.themeImg} alt={theme.name} onLoad={()=>setShowHeight(true)}/>
                         <p>{theme.name}</p>
-                        <i style={{ marginLeft: '1rem' }} className="fas fa-sort-down"></i>
+                        <i style={{ marginLeft: 'auto' }} className="fas fa-sort-down"></i>
                     </div>
                     <ul className={classes.List}  >
                         {theme.noteCollection.map(note => {
@@ -47,7 +48,8 @@ function SideBar(props) {
 const mapStateToProps = (state) => {
     return {
         themes: state.notes.themes,
-        errorMessage: state.notes.errorMessage
+        errorMessage: state.notes.errorMessage,
+        isSignIn: state.auth.isSignIn
     }
 }
 

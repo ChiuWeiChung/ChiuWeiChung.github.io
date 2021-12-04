@@ -1,79 +1,97 @@
-import React from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import classes from './Home.module.css';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import Pagination from '../Pagination/Pagination';
 import Loader from '../UI/Loader/Loader';
-import Footer from '../Footer/Footer';
-import { connect } from 'react-redux';
-import Aux from '../../hoc/Auxiliary';
-import axios from 'axios';
 
-class Home extends React.Component {
+const numPerPage = 5;
 
-    componentDidMount() {
-        window.scrollTo(0, 0);        
+const Home = (props) => {
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const homeRef =useRef(null)
+    useEffect(() => {
+        homeRef.current.scrollTo(0,0);
+        const searchParams = new URLSearchParams(props.history.location.search);
+        let obj = {}
+        for (let key of searchParams) {
+            obj[key[0]] = key[1]
+        };
+        if (obj.page) {
+            if (currentPage.toString() !== obj.page) setCurrentPage(Number(obj.page));
+        } else {
+            setCurrentPage(1)
+        }
+    }, [currentPage, props.history.location.search])
+
+    const goToNote = (themeId, noteId) => {
+        props.history.push(`/note?themeId=${themeId}&noteId=${noteId}`)
     }
 
-    goToNote = (themeId, noteId) => {
-        this.props.history.push(`/note?themeId=${themeId}&noteId=${noteId}`)
+    const gotoPage = (pageNum) => {
+        setCurrentPage(pageNum);
+        props.history.replace(`/?page=${pageNum}`)
     }
 
-    returnSubject() {
-        let allNotes = [];
-        this.props.notes.themes.forEach(el => allNotes.push(...el.noteCollection));
-        allNotes.sort((a, b) => {
-            return new Date(b.updatedDate) - new Date(a.updatedDate)
-        })
+    const renderNotes = () => {
+        if (!props.notes.length && !props.errorMessage) return <Loader />
+        if (!props.notes.length && props.errorMessage) return <h2>{props.errorMessage}</h2>
+        const slicedNotes = props.notes.slice((currentPage - 1) * numPerPage, currentPage * numPerPage);
         return (
-            <Aux>
-                {allNotes.map(el => {
+            <div className={classes.Container}>
+                <header className={classes.Header}>
+                    <h1 className={classes.MainTitle}>近期發布</h1>
+                    {props.isSignIn && (<Link to={'/note/new'}><i className="fas fa-plus-circle"></i></Link>)}
+                </header>
+                {slicedNotes.map(el => {
                     return (
-                        <div onClick={() => this.goToNote(el.themeId, el._id)} className={classes.Subject} key={el._id} >
+                        <div onClick={() => goToNote(el.themeId, el._id)} className={classes.Subject} key={el._id} >
+                            <div className={classes.Date}>
+                                <span style={{ marginRight: '1rem' }}>
+                                    <i className="far fa-calendar-alt">
+                                    </i> {new Date(el.updatedDate).toLocaleDateString()}
+                                </span>
+                                <span>
+                                    <i className="far fa-sticky-note">
+                                    </i> {el.themeType}
+                                </span>
+                            </div>
+
                             <div className={classes.Title} >{el.title}</div>
-                            <div className={classes.Date}>{new Date(el.updatedDate).toLocaleDateString()}</div>
-                            <div className={classes.Desc}>{el.description.substring(0, 200) + '...'}</div>
+                            <div className={classes.Desc}>{el.description.substring(0, 120) + '...'}</div>
                         </div>
                     )
                 })}
-                <Pagination itemLength={allNotes.length} itemsPerPage={2} currentPage={1} />
-            </Aux>
-        )
-
-
-    }
-
-
-    render() {
-        let content = <Loader></Loader>
-        if (this.props.notes.themes.length) {
-            content = (
-                <Aux>
-                    <h1 className={classes.MainTitle}>近期發布</h1>
-                    {this.returnSubject()}
-                    <Footer />
-                </Aux>
-            )
-        } else if (!this.props.notes.themes.length && this.props.notes.errorMessage) {
-            content = (
-                <Aux>
-                    <h1>{this.props.notes.errorMessage}</h1>
-                    <Footer />
-                </Aux>
-            )
-        }
-        return (
-            <div className={classes.Home}>
-                <div className={classes.Container}>
-                    {content}
-                </div>
+                <Pagination gotoPage={gotoPage} itemLength={props.notes.length} numPerPage={numPerPage} currentPage={currentPage} />
             </div>
         )
     }
 
+    return (
+        <div className={[classes.Home, 'Main-Container'].join(' ')} ref={homeRef}>
+            {renderNotes()}
+        </div>
+    )
 }
 
 const mapStateToProps = (state) => {
+    let allNotes = [];
+    const copyThemes = [...state.notes.themes];
+    copyThemes.forEach(theme => {
+        theme.noteCollection.forEach(note => {
+            note.themeType = theme.name
+        });
+        allNotes.push(...theme.noteCollection);
+    });
+    allNotes.sort((a, b) => {
+        return new Date(b.updatedDate) - new Date(a.updatedDate)
+    });
     return {
-        notes: state.notes,
+        notes: allNotes,
+        errorMessage: state.notes.errorMessage,
+        isSignIn: state.auth.isSignIn
     }
 }
 

@@ -22,11 +22,12 @@ const checkInput = (input, themes) => {
         case ('textarea'):
             return <textarea {...input} rows="5" cols="30" style={{ marginBottom: "5px" }} />;
         default:
-            return <input {...input} style={{ marginBottom: "5px" }} />;
+            return <input {...input}  style={{ marginBottom: "5px" }} />;
 
     }
 }
 const noteField = (props) => {
+    // console.log(props)
     return (
         <div >
             <label>{props.label}</label>

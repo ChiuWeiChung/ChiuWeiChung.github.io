@@ -1,0 +1,28 @@
+.Skill{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.Skill ul{
+    padding: 0;
+    list-style: disc;
+    width: 40%;
+    box-sizing: border-box;
+    margin: 0.25rem 5%;
+}
+
+.Skill ul .Title{
+    border-bottom: 1px solid var(--color-light--2);
+    font-size: 1.3rem;
+}
+
+.Skill ul li{
+    font-size: .8rem;
+}
+
+@media (max-width:768px){
+    .Skill ul{
+        width: 80%;
+    }
+}
