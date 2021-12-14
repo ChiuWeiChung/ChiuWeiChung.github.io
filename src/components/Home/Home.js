@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import Pagination from '../Pagination/Pagination';
 import Loader from '../UI/Loader/Loader';
+import Inset from './Inset/Inset';
 
 const numPerPage = 5;
 
@@ -71,6 +72,7 @@ const Home = (props) => {
 
     return (
         <div className={[classes.Home, 'Main-Container'].join(' ')} ref={homeRef}>
+            <Inset/>
             {renderNotes()}
         </div>
     )

@@ -21,7 +21,7 @@ const navigation = (props) => {
     return (
         <div className={classes.Navbar}>
             <div className={classes.Logo}><i className="fas fa-code"></i>
-                <Link to="/"> Rick的開發筆記</Link>
+                <Link to="/"> Rick 的開發筆記</Link>
             </div>
             <Hamburger clicked={props.clicked} />
             <Link className={classes.HomeIcon} to="/">

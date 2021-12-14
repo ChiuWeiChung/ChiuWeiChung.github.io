@@ -1,0 +1,36 @@
+.Inset{
+    position: fixed;
+    top: 15%;
+    right: 1%;
+    width: 16%;
+    border-radius: 5px;
+    background-color: var(--color-dark--2);
+    color: var(--color-brand--2);
+}
+
+.Inset .Item{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0.25rem 0;
+}
+
+.Inset .Item *{
+    margin: 0 .5rem
+}
+
+.Inset .Item a {
+    text-decoration: none;
+    color: var(--color-orange--1);
+}
+
+.Inset .Item .Description{
+    color: var(--color-light--1);
+    font-size: 12px;
+}
+
+@media (max-width:768px) {
+    .Inset{
+        display: none;
+    }
+}
