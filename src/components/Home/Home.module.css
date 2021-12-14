@@ -11,7 +11,11 @@
 .Header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.Header * {
+    margin-right:1rem
 }
 
 .Header h1 {
@@ -24,7 +28,7 @@
 
 
 .Header a {
-    font-size: 3rem;
+    font-size: 2em;
     color: rgb(74 97 198);
     text-decoration: none;
     margin-right: 2rem;

@@ -1,13 +1,13 @@
 # 自製部落格網站
 
 
-## [點擊進入自製部落格網站](https://chiuweichung.github.io/OrderApp/)
+## [點擊進入自製部落格網站](https://chiuweichung.github.io/)
 
 
 * 使用 React 建立之 SPA
 * 使用 Redux 及 React Final Form 進行狀態管理
-* 使用 CSS Modules 方案進行刻板
-* 串接自製筆記資料 API ( Node.js / Express / MongoDB/ SendGrid )
+* 使用 CSS Modules 方案切版
+* 開發並串接 RESTful API (Node.js / Express / Mongoose & MongoDB)
 * 以 JWT-Based Authentication 進行身分認證
 
 
